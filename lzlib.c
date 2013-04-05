@@ -702,6 +702,11 @@ static int lzlib_version(lua_State *L)
     return 1;
 }
 
+static uLong toULong(lua_State *L, int i)
+{
+    return (uLong) luaL_checknumber(L, i);
+}
+
 /* ====================================================================== */
 static int lzlib_adler32(lua_State *L)
 {
@@ -713,7 +718,8 @@ static int lzlib_adler32(lua_State *L)
     else
     {
         /* update adler32 checksum */
-        int adler = luaL_checkint(L, 1);
+/*        int adler = luaL_checkint(L, 1); */
+        uLong adler = toULong(L, 1);
         const unsigned char* buf = (unsigned char*)luaL_checkstring(L, 2);
         int len = lua_strlen(L, 2);
 
@@ -733,7 +739,8 @@ static int lzlib_crc32(lua_State *L)
     else
     {
         /* update crc32 checksum */
-        int crc = luaL_checkint(L, 1);
+/*        int crc = luaL_checkint(L, 1); */
+        uLong crc = toULong(L, 1);
         const unsigned char* buf = (unsigned char*)luaL_checkstring(L, 2);
         int len = lua_strlen(L, 2);
 
