@@ -847,7 +847,7 @@ static int lzlib_decompress(lua_State *L)
     zs.next_in = (unsigned char*)next_in;
     zs.avail_in = avail_in;
 
-    for (;;) {
+    do{
         zs.next_out = (unsigned char*)luaL_prepbuffer(&b);
         zs.avail_out = LUAL_BUFFERSIZE;
 
@@ -868,6 +868,16 @@ static int lzlib_decompress(lua_State *L)
             lua_pushliteral(L, "failed to process zlib stream");
             lua_error(L);
         }
+
+
+    } while(zs.avail_out == 0);
+
+    if (ret != Z_STREAM_END)
+    {
+            inflateEnd(&zs);
+
+            lua_pushliteral(L, "failed to process zlib stream");
+            lua_error(L);
     }
 
     /* cleanup */
