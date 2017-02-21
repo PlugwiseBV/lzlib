@@ -6,10 +6,9 @@ DISTDIR=dist
 TMP=/tmp
 
 # change these to reflect your Lua installation
-LUA= $(HOME)/local/lua
-LUAINC= $(LUA)/include
-LUALIB= $(LUA)/lib
-LUABIN= $(LUA)/bin
+LUAVER=5.1
+LUABIN=/usr/bin/lua$(LUAVER)
+LUAINC=/usr/include/lua$(LUAVER) -I/usr/include/lua-$(LUAVER)
 
 ZLIB=../zlib-1.2.3
 
@@ -17,7 +16,7 @@ ZLIB=../zlib-1.2.3
 CFLAGS= $(INCS) $(DEFS) $(WARN) -O0 -fPIC
 WARN= -g -Werror -Wall -pedantic #-ansi
 INCS= -I$(LUAINC) -I$(ZLIB)
-LIBS= -L$(ZLIB) -lz -L$(LUALIB) -L$(LUABIN) #-llua51
+LIBS= -L$(ZLIB) -lz
 
 MYLIB=lzlib
 
